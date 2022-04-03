@@ -1,0 +1,66 @@
+body {
+  font-family: "Secular One", sans-serif;
+  color: white;
+  background-image: url("./sunset.jpg");
+  background-size: 1400px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+button {
+  right: -210px;
+  top: -37px;
+}
+
+.weather-app {
+  background: rgba(29, 31, 26, 0.8);
+  border-radius: 20px;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 750px;
+}
+.input-group {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  margin-left: 415px;
+}
+.align-items-start,
+.weather-detail {
+  font-size: 18px;
+}
+.fa-spin {
+  font-size: 85px;
+  position: relative;
+  left: 35px;
+}
+.current-temperature {
+  font-size: 25px;
+  font-weight: normal;
+  position: relative;
+}
+.current-location {
+  font-size: 24px;
+}
+.current-location-info {
+  text-align: right;
+  padding: 0 30px;
+}
+.align-items-end {
+  margin: 0 auto;
+  padding-top: 25px;
+  padding-bottom: 25px;
+  text-align: center;
+}
+
+.sixdays {
+  font-size: 2em;
+}
+.github-link {
+  margin: 105px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 750px;
+}
