@@ -14,6 +14,7 @@ let showCityName = document.querySelector("#input-form");
 showCityName.addEventListener("submit", revealCity);
 let searchCityButton = document.querySelector("#searching-button");
 searchCityButton.addEventListener("click", revealCity);
+
 //show temperature
 function showTemperature(response) {
   console.log(response.data);
