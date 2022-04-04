@@ -1,4 +1,3 @@
-//general search engine
 function searchEngine(city) {
   let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
@@ -15,20 +14,47 @@ showCityName.addEventListener("submit", revealCity);
 let searchCityButton = document.querySelector("#searching-button");
 searchCityButton.addEventListener("click", revealCity);
 
-//show temperature
+function formatDate(timestamp) {
+  let now = new Date(timestamp);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = days[now.getDay()];
+  //current time
+  let hours = now.getHours();
+  if (hours < 10) {
+    hours = `0${hours}`;
+  }
+  let minutes = now.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
+  }
+  return `${day} ${hours}:${minutes}`;
+}
+
 function showTemperature(response) {
   console.log(response.data);
   let temperature = document.querySelector("#current-temp");
-  temperature.innerHTML = Math.round(response.data.main.temp);
   let location = document.querySelector("#location");
-  location.innerHTML = response.data.name;
   let description = document.querySelector("#description");
-  description.innerHTML = response.data.weather[0].main;
   let wind = document.querySelector("#windspeed");
-  wind.innerHTML = Math.round(response.data.wind.speed);
-  document.querySelector("#cloudiness").innerHTML = response.data.clouds.all;
+  let cloudiness = document.querySelector("#cloudiness");
   let humidity = document.querySelector("#humidity");
+  let date = document.querySelector("#current-date");
+  temperature.innerHTML = Math.round(response.data.main.temp);
+  location.innerHTML = response.data.name;
+  description.innerHTML = response.data.weather[0].main;
+  wind.innerHTML = Math.round(response.data.wind.speed);
+  cloudiness.innerHTML = response.data.clouds.all;
+  //document.querySelector("#cloudiness").innerHTML = response.data.clouds.all;
   humidity.innerHTML = response.data.main.humidity;
+  date.innerHTML = formatDate(response.data.dt * 1000);
 }
 
 //get your current location
@@ -48,37 +74,3 @@ let locationButton = document.querySelector("#current-location-button");
 locationButton.addEventListener("click", clickLocationButton);
 
 searchEngine("Tokyo");
-
-//week4 feature1
-let now = new Date();
-
-function setCurrentDay() {
-  //current day
-  let days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let day = days[now.getDay()];
-  let currentDay = document.querySelector("#current-day");
-  currentDay.innerHTML = day;
-
-  //current time
-  let hours = now.getHours();
-  if (hours < 10) {
-    hours = `0${hours}`;
-  }
-  let minutes = now.getMinutes();
-  if (minutes < 10) {
-    minutes = `0${minutes}`;
-  }
-  let currentHour = document.querySelector("#current-hour");
-  let currentMinute = document.querySelector("#current-minute");
-  currentHour.innerHTML = hours;
-  currentMinute.innerHTML = minutes;
-}
-setCurrentDay();
