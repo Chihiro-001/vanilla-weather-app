@@ -59,8 +59,9 @@ button {
   font-size: 2em;
 }
 .github-link {
-  margin: 105px;
+  margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
   width: 750px;
+  display: block;
 }
