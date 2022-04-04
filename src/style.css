@@ -1,8 +1,12 @@
 body {
   font-family: "Secular One", sans-serif;
   color: white;
-  background-image: url("./sunset.jpg");
-  background-size: 1500px;
+  background: linear-gradient(
+    89.9deg,
+    rgb(208, 246, 255) 0.1%,
+    rgb(255, 237, 237) 47.9%,
+    rgb(255, 255, 231) 100.2%
+  );
 }
 
 ul {
@@ -59,6 +63,7 @@ button {
   font-size: 2em;
 }
 .github-link {
+  color: #483b2b;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;
