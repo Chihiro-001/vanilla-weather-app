@@ -19,7 +19,7 @@ button {
 }
 
 .weather-app {
-  background: rgba(29, 31, 26, 0.8);
+  background: #887575;
   border-radius: 20px;
   margin: 0 auto;
   margin-top: 20px;
@@ -31,15 +31,21 @@ button {
   margin-bottom: 0px;
   margin-left: 415px;
 }
+.btn-outline-secondary {
+  color: white;
+  border-color: #ced4da;
+}
+
 .align-items-start,
 .weather-detail {
   font-size: 18px;
 }
-.fa-spin {
-  font-size: 85px;
+.current-weather-icon {
   position: relative;
-  left: 35px;
+  top: -25px;
+  left: 20px;
 }
+
 .current-temperature {
   font-size: 25px;
   font-weight: normal;
@@ -63,7 +69,7 @@ button {
   font-size: 2em;
 }
 .github-link {
-  color: #483b2b;
+  color: #887575;
   margin: 0 auto;
   margin-top: 20px;
   margin-bottom: 20px;

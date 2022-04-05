@@ -47,6 +47,7 @@ function showTemperature(response) {
   let cloudiness = document.querySelector("#cloudiness");
   let humidity = document.querySelector("#humidity");
   let date = document.querySelector("#current-date");
+  let icon = document.querySelector("#current-weather-icon");
   temperature.innerHTML = Math.round(response.data.main.temp);
   location.innerHTML = response.data.name;
   description.innerHTML = response.data.weather[0].main;
@@ -55,6 +56,10 @@ function showTemperature(response) {
   //document.querySelector("#cloudiness").innerHTML = response.data.clouds.all;
   humidity.innerHTML = response.data.main.humidity;
   date.innerHTML = formatDate(response.data.dt * 1000);
+  icon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 
 //get your current location

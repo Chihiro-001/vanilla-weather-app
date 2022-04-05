@@ -55,13 +55,12 @@
         </div>
 
         <div class="row align-items-start">
-          <div class="col-2 current-weather-icon">
-            <div class="fa-3x">
-              <i
-                class="fa-solid fa-sun fa-spin"
-                style="--fa-animation-duration: 15s"
-              ></i>
-            </div>
+          <div class="col-2">
+            <img
+              src="http://openweathermap.org/img/wn/10d@2x.png"
+              id="current-weather-icon"
+              class="current-weather-icon"
+            />
           </div>
 
           <div class="col-2">
@@ -84,7 +83,7 @@
             <ul>
               <li class="current-location" id="location"></li>
               <li>last updated: <span id="current-date"></span></li>
-              <li class="current-weather" id="description">Clear</li>
+              <li id="description"></li>
             </ul>
           </div>
         </div>
