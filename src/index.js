@@ -49,6 +49,7 @@ function showTemperature(response) {
   let date = document.querySelector("#current-date");
   let icon = document.querySelector("#current-weather-icon");
   temperature.innerHTML = Math.round(response.data.main.temp);
+  celsiusTemperature = response.data.main.temp;
   location.innerHTML = response.data.name;
   description.innerHTML = response.data.weather[0].main;
   wind.innerHTML = Math.round(response.data.wind.speed);
@@ -63,19 +64,43 @@ function showTemperature(response) {
 }
 
 //get your current location
+function findCurrentLocation(position) {
+  let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
+  let lat = position.coords.latitude;
+  let lon = position.coords.longitude;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}`;
+  let unit = "metric";
+  axios.get(`${apiUrl}&appid=${apiKey}&units=${unit}`).then(showTemperature);
+}
 function clickLocationButton(event) {
   event.preventDefault();
-  function findCurrentLocation(position) {
-    let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
-    let lat = position.coords.latitude;
-    let lon = position.coords.longitude;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}`;
-    let unit = "metric";
-    axios.get(`${apiUrl}&appid=${apiKey}&units=${unit}`).then(showTemperature);
-  }
   navigator.geolocation.getCurrentPosition(findCurrentLocation);
 }
 let locationButton = document.querySelector("#current-location-button");
 locationButton.addEventListener("click", clickLocationButton);
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperature = document.querySelector("#current-temp");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperature.innerHTML = Math.round(fahrenheitTemperature);
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperature = document.querySelector("#current-temp");
+  temperature.innerHTML = Math.round(celsiusTemperature);
+}
+celsiusTemperature = null;
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 searchEngine("Tokyo");
