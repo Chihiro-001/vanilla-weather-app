@@ -77,10 +77,10 @@ button {
   padding-bottom: 25px;
   text-align: center;
 }
-
-.sixdays {
-  font-size: 2em;
+.weather-forcast-icon {
+  max-width: 50%;
 }
+
 .github-link {
   color: #887575;
   margin: 0 auto;
