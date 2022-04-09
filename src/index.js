@@ -9,10 +9,6 @@ function revealCity(event) {
   let city = document.querySelector("#search-text-input").value;
   searchEngine(city);
 }
-let showCityName = document.querySelector("#input-form");
-showCityName.addEventListener("submit", revealCity);
-let searchCityButton = document.querySelector("#searching-button");
-searchCityButton.addEventListener("click", revealCity);
 
 function formatDate(timestamp) {
   let now = new Date(timestamp);
@@ -39,7 +35,6 @@ function formatDate(timestamp) {
 }
 
 function showTemperature(response) {
-  console.log(response.data);
   let temperature = document.querySelector("#current-temp");
   let location = document.querySelector("#location");
   let description = document.querySelector("#description");
@@ -76,8 +71,6 @@ function clickLocationButton(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(findCurrentLocation);
 }
-let locationButton = document.querySelector("#current-location-button");
-locationButton.addEventListener("click", clickLocationButton);
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
@@ -95,7 +88,46 @@ function displayCelsiusTemperature(event) {
   let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = Math.round(celsiusTemperature);
 }
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row align-items-end">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col">
+        <div class="weather-forecast-date">${day}</div>
+          <img
+            src="https://openweathermap.org/img/wn/01d@2x.png"
+            alt=""
+            class="weather-forecast-icon"
+            />
+            <div class="weather-forecast-temp">
+              <span class="weather-forecast-temp-max">
+                15<small>°C</small></span
+              >
+              / <span class="weather-forecast-temp-min"></span>12<small
+                >°C</small
+              >
+            </div>
+          </div>
+  `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 celsiusTemperature = null;
+
+let showCityName = document.querySelector("#input-form");
+showCityName.addEventListener("submit", revealCity);
+let searchCityButton = document.querySelector("#searching-button");
+searchCityButton.addEventListener("click", revealCity);
+
+let locationButton = document.querySelector("#current-location-button");
+locationButton.addEventListener("click", clickLocationButton);
 
 let fahrenheitLink = document.querySelector("#fahrenheit-link");
 fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
@@ -104,3 +136,4 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 searchEngine("Tokyo");
+displayForecast();
