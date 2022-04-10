@@ -22,9 +22,11 @@ button {
   background: #887575;
   border-radius: 20px;
   margin: 0 auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
   width: 750px;
+}
+.today {
+  margin-top: 80px;
+  margin-bottom: 20px;
 }
 .input-group {
   margin-top: 20px;
@@ -45,7 +47,6 @@ button {
   top: -25px;
   left: 20px;
 }
-
 .current-temperature {
   font-size: 35px;
   font-weight: normal;
@@ -55,9 +56,6 @@ button {
   position: relative;
   top: -12px;
 }
-.current-location {
-  font-size: 24px;
-}
 .active {
   color: white;
   cursor: default;
@@ -66,7 +64,9 @@ button {
 .active:hover {
   text-decoration: none;
 }
-
+.current-location {
+  font-size: 24px;
+}
 .current-location-info {
   text-align: right;
   padding: 0 30px;
