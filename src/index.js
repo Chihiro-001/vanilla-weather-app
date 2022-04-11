@@ -49,7 +49,6 @@ function showTemperature(response) {
   description.innerHTML = response.data.weather[0].main;
   wind.innerHTML = Math.round(response.data.wind.speed);
   cloudiness.innerHTML = response.data.clouds.all;
-  //document.querySelector("#cloudiness").innerHTML = response.data.clouds.all;
   humidity.innerHTML = response.data.main.humidity;
   date.innerHTML = formatDate(response.data.dt * 1000);
   icon.setAttribute(
@@ -58,7 +57,6 @@ function showTemperature(response) {
   );
 }
 
-//get your current location
 function findCurrentLocation(position) {
   let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
   let lat = position.coords.latitude;
@@ -89,34 +87,54 @@ function displayCelsiusTemperature(event) {
   temperature.innerHTML = Math.round(celsiusTemperature);
 }
 
-function displayForecast() {
+function formatForecastDate(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function displayForecast(response) {
+  console.log(response);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  let forecastHTML = `<div class="row align-items-end">`;
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `<div class="col">
-        <div class="weather-forecast-date">${day}</div>
+  let forecastHtml = `<div class="row align-items-end">`;
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHtml =
+        forecastHtml +
+        `<div class="col">
+        <div class="weather-forecast-date">${formatDate(forecastDay.dt)}</div>
           <img
-            src="https://openweathermap.org/img/wn/01d@2x.png"
+            src="https://openweathermap.org/img/wn/${
+              forecastDay.weather[0].icon
+            }@2x.png"
             alt=""
             class="weather-forecast-icon"
             />
             <div class="weather-forecast-temp">
               <span class="weather-forecast-temp-max">
-                15<small>°C</small></span
+                ${forecastDay.temp.max}<small>°C</small></span
               >
-              / <span class="weather-forecast-temp-min"></span>12<small
+              / <span class="weather-forecast-temp-min"></span>${
+                forecastDay.temp.min
+              }<small
                 >°C</small
               >
             </div>
-          </div>
+        </div>
   `;
+    }
   });
+  forecastHtml = forecastHtml + `</div>`;
+  forecastElement.innerHTML = forecastHtml;
+}
 
-  forecastHTML = forecastHTML + `</div>`;
-  forecastElement.innerHTML = forecastHTML;
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 
 celsiusTemperature = null;
