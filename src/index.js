@@ -71,23 +71,6 @@ function clickLocationButton(event) {
   navigator.geolocation.getCurrentPosition(findCurrentLocation);
 }
 
-function displayFahrenheitTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.remove("active");
-  fahrenheitLink.classList.add("active");
-  let temperature = document.querySelector("#current-temp");
-  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
-  temperature.innerHTML = Math.round(fahrenheitTemperature);
-}
-
-function displayCelsiusTemperature(event) {
-  event.preventDefault();
-  celsiusLink.classList.add("active");
-  fahrenheitLink.classList.remove("active");
-  let temperature = document.querySelector("#current-temp");
-  temperature.innerHTML = Math.round(celsiusTemperature);
-}
-
 function formatForecastDate(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -116,10 +99,10 @@ function displayForecast(response) {
             class="weather-forecast-icon"
             />
             <div class="weather-forecast-temp">
-              <span class="weather-forecast-temp-max">
+              <span class="weather-forecast-temp-max" id = "weather-forecast-temp-max">
                 ${Math.round(forecastDay.temp.max)}<small>°C</small></span
               >
-              / <span class="weather-forecast-temp-min">${Math.round(
+              / <span class="weather-forecast-temp-min" id="weather-forecast-temp-min">${Math.round(
                 forecastDay.temp.min
               )}<small class="weather-forecast-temp-min"
                 >°C</small
@@ -149,11 +132,5 @@ searchCityButton.addEventListener("click", revealCity);
 
 let locationButton = document.querySelector("#current-location-button");
 locationButton.addEventListener("click", clickLocationButton);
-
-let fahrenheitLink = document.querySelector("#fahrenheit-link");
-fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 searchEngine("Tokyo");
