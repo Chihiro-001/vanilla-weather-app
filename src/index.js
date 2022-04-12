@@ -55,6 +55,7 @@ function showTemperature(response) {
     "src",
     `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
   );
+  getForecast(response.data.coord);
 }
 
 function findCurrentLocation(position) {
@@ -95,16 +96,18 @@ function formatForecastDate(timestamp) {
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
   let forecastHtml = `<div class="row align-items-end">`;
   forecast.forEach(function (forecastDay, index) {
-    if (index < 6) {
+    if (index < 5) {
       forecastHtml =
         forecastHtml +
-        `<div class="col">
-        <div class="weather-forecast-date">${formatDate(forecastDay.dt)}</div>
+        `
+        <div class="col">
+           <div class="weather-forecast-date">${formatForecastDate(
+             forecastDay.dt
+           )}</div>
           <img
             src="https://openweathermap.org/img/wn/${
               forecastDay.weather[0].icon
@@ -114,13 +117,13 @@ function displayForecast(response) {
             />
             <div class="weather-forecast-temp">
               <span class="weather-forecast-temp-max">
-                ${forecastDay.temp.max}<small>°C</small></span
+                ${Math.round(forecastDay.temp.max)}<small>°C</small></span
               >
-              / <span class="weather-forecast-temp-min"></span>${
+              / <span class="weather-forecast-temp-min">${Math.round(
                 forecastDay.temp.min
-              }<small
+              )}<small class="weather-forecast-temp-min"
                 >°C</small
-              >
+              ></span>
             </div>
         </div>
   `;
@@ -154,4 +157,3 @@ let celsiusLink = document.querySelector("#celsius-link");
 celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 searchEngine("Tokyo");
-displayForecast();

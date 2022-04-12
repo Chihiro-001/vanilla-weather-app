@@ -80,6 +80,9 @@ button {
 .weather-forecast-icon {
   max-width: 50%;
 }
+.weather-forecast-temp-min {
+  opacity: 70%;
+}
 
 .github-link {
   color: #887575;
