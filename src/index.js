@@ -71,6 +71,43 @@ function clickLocationButton(event) {
   navigator.geolocation.getCurrentPosition(findCurrentLocation);
 }
 
+//function convertForecastTemperatureTo(unitType) {
+//  forecast.forEach(function (forecastDay, index) {
+//    if (index > 0 && index < 6) {
+//      let tempMin = Math.round(forecastDay.temp.min);
+//      let tempMax = Math.round(forecastDay.temp.max);
+//      let min = document.querySelector("#weather-forecast-temp-min" + index);
+//      let max = document.querySelector("#weather-forecast-temp-max" + index);
+//      if (unitType === "metric") {
+//       min.innerHTML = tempMin;
+//        max.innerHTML = tempMax;
+//     } else {
+//        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
+//        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
+//      }
+//    }
+//  });
+//}
+
+function displayFahrenheitTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.remove("active");
+  fahrenheitLink.classList.add("active");
+  let temperature = document.querySelector("#current-temp");
+  let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
+  temperature.innerHTML = Math.round(fahrenheitTemperature);
+  // convertForecastTemperatureTo("imperial");
+}
+
+function displayCelsiusTemperature(event) {
+  event.preventDefault();
+  celsiusLink.classList.add("active");
+  fahrenheitLink.classList.remove("active");
+  let temperature = document.querySelector("#current-temp");
+  temperature.innerHTML = Math.round(celsiusTemperature);
+  // convertForecastTemperatureTo("metric");
+}
+
 function formatForecastDate(timestamp) {
   let date = new Date(timestamp * 1000);
   let day = date.getDay();
@@ -114,6 +151,9 @@ function displayForecast(response) {
   });
   forecastHtml = forecastHtml + `</div>`;
   forecastElement.innerHTML = forecastHtml;
+  // if (celsiusLink.className === "active") {
+  //  convertForecastTemperatureTo("metric");
+  // }
 }
 
 function getForecast(coordinates) {
@@ -123,7 +163,9 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayForecast);
 }
 
-celsiusTemperature = null;
+let celsiusTemperature = null;
+let unit = "metric";
+let forecast = null;
 
 let showCityName = document.querySelector("#input-form");
 showCityName.addEventListener("submit", revealCity);
@@ -132,5 +174,11 @@ searchCityButton.addEventListener("click", revealCity);
 
 let locationButton = document.querySelector("#current-location-button");
 locationButton.addEventListener("click", clickLocationButton);
+
+let fahrenheitLink = document.querySelector("#fahrenheit-link");
+fahrenheitLink.addEventListener("click", displayFahrenheitTemperature);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", displayCelsiusTemperature);
 
 searchEngine("Tokyo");
