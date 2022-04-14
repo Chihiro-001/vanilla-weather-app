@@ -4,6 +4,7 @@ function searchEngine(city) {
   let unit = "metric";
   axios.get(`${apiUrl}&appid=${apiKey}&units=${unit}`).then(showTemperature);
 }
+
 function revealCity(event) {
   event.preventDefault();
   let city = document.querySelector("#search-text-input").value;
@@ -66,28 +67,11 @@ function findCurrentLocation(position) {
   let unit = "metric";
   axios.get(`${apiUrl}&appid=${apiKey}&units=${unit}`).then(showTemperature);
 }
+
 function clickLocationButton(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition(findCurrentLocation);
 }
-
-//function convertForecastTemperatureTo(unitType) {
-//  forecast.forEach(function (forecastDay, index) {
-//    if (index > 0 && index < 6) {
-//      let tempMin = Math.round(forecastDay.temp.min);
-//      let tempMax = Math.round(forecastDay.temp.max);
-//      let min = document.querySelector("#weather-forecast-temp-min" + index);
-//      let max = document.querySelector("#weather-forecast-temp-max" + index);
-//      if (unitType === "metric") {
-//       min.innerHTML = tempMin;
-//        max.innerHTML = tempMax;
-//     } else {
-//        min.innerHTML = Math.round((tempMin * 9) / 5 + 32);
-//        max.innerHTML = Math.round((tempMax * 9) / 5 + 32);
-//      }
-//    }
-//  });
-//}
 
 function displayFahrenheitTemperature(event) {
   event.preventDefault();
@@ -96,7 +80,6 @@ function displayFahrenheitTemperature(event) {
   let temperature = document.querySelector("#current-temp");
   let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
   temperature.innerHTML = Math.round(fahrenheitTemperature);
-  // convertForecastTemperatureTo("imperial");
 }
 
 function displayCelsiusTemperature(event) {
@@ -105,7 +88,6 @@ function displayCelsiusTemperature(event) {
   fahrenheitLink.classList.remove("active");
   let temperature = document.querySelector("#current-temp");
   temperature.innerHTML = Math.round(celsiusTemperature);
-  // convertForecastTemperatureTo("metric");
 }
 
 function formatForecastDate(timestamp) {
@@ -151,13 +133,9 @@ function displayForecast(response) {
   });
   forecastHtml = forecastHtml + `</div>`;
   forecastElement.innerHTML = forecastHtml;
-  // if (celsiusLink.className === "active") {
-  //  convertForecastTemperatureTo("metric");
-  // }
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "7b2471b32a9aba35093d93a82db55ee8";
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
